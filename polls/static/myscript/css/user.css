@@ -1,0 +1,99 @@
+#example_wrapper{
+    width: 100%;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+#example_wrapper{
+    font-size: 15px;
+}
+#example{
+    font-size: 15px;
+}
+#example_paginate{
+   margin-top: -20px;
+}
+#example_paginate ul li a{
+    text-decoration: none;
+}
+
+.dataTables_wrapper .dataTables_filter{
+    float: left;
+}
+
+input.form-control.form-control-sm{
+       width: 400px;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    width: 350px !important;
+}
+.portlet.box {
+    border: 1px solid #4f5f6f;
+    background-color: #4f5f6f;
+    border-radius: 2px !important;
+}
+.abutton{
+    -webkit-appearance: none !important;
+    cursor:pointer !important;
+    color: green !important;
+    background-color: white;
+    border: 2px solid green;
+    border-radius: 5px !important;
+    font-size: 1rem !important;
+}
+.abutton:hover{
+    background-color: white !important;
+}
+
+.foote {
+      font-size: 1rem;
+      background-color: #fff;
+      position: absolute;
+      left: 240px;
+      right: 0;
+      bottom: 0;
+      height: 50px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      color: #4f5f6f !important;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+      .footer-fixed .footer {
+        position: fixed; }
+      .foote .footer-block {
+        vertical-align: middle;
+        margin-left: 20px;
+        margin-right: 20px; }
+      .foote .footer-github-btn {
+        vertical-align: middle; }
+      @media (max-width: 991.98px) {
+        .foote {
+          left: 0; } }
+      .foote .author > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0; }
+        .foote .author > ul li {
+          display: inline-block; }
+          .foote .author > ul li:after {
+            content: "|"; }
+          .foote .author > ul li:last-child:after {
+            content: ""; }
+          @media (max-width: 991.98px) {
+            .foote .author > ul li {
+              display: block;
+              text-align: right; }
+              .foote .author > ul li:after {
+                content: ""; } }
+        @media (max-width: 991.98px) {
+          .foote .author > ul {
+            display: block; } }
+        @media (max-width: 767.98px) {
+          .foote .author > ul {
+            display: none; } }

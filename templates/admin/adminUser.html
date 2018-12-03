@@ -1,0 +1,110 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+    <link href="{% static 'assets/plugins/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/plugins/bootstrap-responsive.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/plugins/style-metro.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static  'assets/plugins/style.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'layout/css/admin.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-container row-fluid" style="padding-top: 30px">
+
+        <div class="container" style="width: auto !important;">
+
+            <div class="span12">
+                <div class="portlet box">
+                    <div class="portlet-title" style="font-size: 25px; padding: 17px">
+                        {% if adminUser.is_staff %} Admin Setting {% else %} User Setting {% endif %}
+                    </div>
+                    <div class="portlet-body form" style="padding-top: 70px">
+                        <!-- BEGIN FORM-->
+                        <form action="{% url 'editAdmin' %}" class="form-horizontal" method="post">
+
+                            {% csrf_token %}
+
+                            <div class="form-group ">
+
+                                <div class="control-group" style="padding-bottom: 20px">
+                                    <label class="control-label" style="margin-left: 8%">Username:</label>
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input type="text" class="span10 m-wrap" name="username" style="padding-left: 7px" value="{{ adminUser.username }}" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="padding-bottom: 20px">
+                                    <label class="control-label" style="margin-left: 8%">First Name:</label>
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input class="span10 m-wrap" name="firstName" style="padding-left: 7px" value="{{ adminUser.first_name }}" required ></input>
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="padding-bottom: 20px">
+                                    <label class="control-label" style="margin-left: 8%">Last Name:</label>
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input class="span10 m-wrap" name="lastName" style="padding-left: 7px" value="{{ adminUser.last_name }}" required></input>
+                                    </div>
+                                </div>
+                                <div class="control-group" style="padding-bottom: 20px">
+                                    <label class="control-label" style="margin-left: 8%">Email:</label>
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input class="span10 m-wrap" name="email" style="padding-left: 7px" value="{{ adminUser.email }}" required></input>
+                                    </div>
+                                </div><hr>
+
+                                <div class="control-group" style="padding-bottom: 20px">
+
+                                    <label class="control-label" style="margin-left: 8%">Old Password:</label>
+
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input type="password" class="span10 m-wrap" name="old_password" style="padding-left: 7px" value="{{ old_password }}">
+                                        {% if old_password_error %}
+                                            <p style="font-size: 15px;color: red;margin-top: 5px;">
+                                                {{ old_password_error }}
+                                            </p>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="padding-bottom: 20px">
+
+                                        <label class="control-label" style="margin-left: 8%">New password:</label>
+
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input type="password" class="span10 m-wrap" name="new_password" style="padding-left: 7px" value="{{ new_password }}" ></input>
+                                    </div>
+                                </div><hr>
+
+                                <div class="control-group" style="padding-bottom: 20px">
+                                    <label class="control-label" style="width: 200px;margin-left: 8%;">New password confirmation:</label>
+                                    <div class="controls col-sm-9" style="float:right;margin: 0px;">
+                                        <input type="password" class="span10 m-wrap" name="confirm_password" style="padding-left: 7px"></input>
+                                        {% if confirm_password_error %}
+                                            <p style="font-size: 15px;color: red;margin-top: 5px;">
+                                                {{ confirm_password_error }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn abutton" style="width: 100px">Save</button>
+                                    <a type="button" href="{% url 'GUser' %}" class="btn abutton" style="width: 100px">Back</a>
+                               </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END SAMPLE FORM PORTLET-->
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

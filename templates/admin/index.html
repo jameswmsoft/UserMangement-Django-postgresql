@@ -1,0 +1,209 @@
+{% load static %}<!doctype html>
+<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title> Admin </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="{% static 'layout/css/vendor.css' %}">
+
+        <link href="{% static 'bootstrap-4.1.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'datatable/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"><link href="{% static 'toastor/css/toastr.min.css' %}" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="{% static 'layout/css/app.css' %}">
+
+        {% block extrastyle %}{% endblock %}
+
+        <link rel="stylesheet" href="{% static 'myscript/css/user.css'%}">
+
+        <style>
+            #tema-sider li{
+                padding: 6px 0px 1px 0px;
+            }
+
+            #tema-sider li a:hover{
+                background-color: grey;
+            }
+
+            #example tr td {
+                padding-bottom: 4px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="main-wrapper">
+            <div class="app" id="app">
+                <header class="header">
+                    <div class="header-block header-block-collapse d-lg-none d-xl-none">
+                        <button class="collapse-btn" id="sidebar-collapse-btn">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <div class="header-block header-block-nav">
+
+                        <ul class="nav-profile">
+
+                            <li class="profile dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span class="name"> <i class="fa fa-user icon" style="font-size: 25px"></i> </span>
+                                </a>
+                                <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    {% if user.is_staff %}
+                                        <a class="dropdown-item" href="{% url 'adminUser' user.id %}">
+                                            <i class="fa fa-gear icon"></i> Admin Setting </a>
+                                    {% else %}
+                                        <a class="dropdown-item" href="{% url 'adminUser' user.id %}">
+                                            <i class="fa fa-gear icon"></i> Setting </a>
+                                    {% endif %}
+
+                                    {% block userlinks %}
+                                        <a class="dropdown-item" href="{% url 'adminLogout' %}">
+                                            <i class="fa fa-power-off icon"></i> Logout </a>
+                                    {% endblock %}
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </header>
+                <aside class="sidebar">
+                    <div class="sidebar-container">
+                        <div class="sidebar-header">
+                            <div class="brand">
+                                <div class="logo">
+                                    <span class="l l1"></span>
+                                    <span class="l l2"></span>
+                                    <span class="l l3"></span>
+                                    <span class="l l4"></span>
+                                    <span class="l l5"></span>
+                                </div> Modular Admin </div>
+                        </div>
+                        <nav class="menu">
+                            <ul class="sidebar-menu metismenu" >
+
+                                <li id="customer">
+                                    <div style="padding-left: 20px;font-size: 18px;font-weight:bold; color: darkgray">User</div>
+                                    <a href="{% url 'GUser' %}">
+                                        <i class="fa fa-user icon" style="font-size: 20px"></i> Home
+                                        <i class="fa arrow"></i>
+                                    </a>
+                                </li>
+
+                                {% if user.is_staff %}
+                                    <li id="gUser" style="margin-top: 50px">
+                                        <div style="padding-left: 20px;font-size: 18px;font-weight:bold; color: darkgray">Admin</div>
+                                        <a href="{% url 'customer' %}">
+                                            <i class="fa fa-user icon" style="font-size: 20px"></i> User Manager
+                                            <i class="fa arrow"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+
+                <div class="sidebar-overlay" id="sidebar-overlay"></div>
+                <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+                <div class="mobile-menu-handle"></div>
+                <article class="content dashboard-page">
+                    <section class="section">
+                        {% block content %}
+                        <div class="row sameheight-container">
+                            <div class="col col-12 col-sm-12 col-md-12 col-xl-12 stats-col">
+                                <div class="card stats" data-exclude="xs">
+                                    <div class="card-block">
+                                        <div class="title-block">
+                                            <h4 class="title" style="font-size: 30px"> User Management</h4>
+                                        </div>
+                                        <div class="row row-sm stats-container" style="padding-bottom: 15px">
+                                            <table id="example" class="table table-striped table-bordered" style="width:100%;margin-top: 70px !important;">
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                            Name
+                                                    </th>
+                                                    <th>Fullname</th>
+                                                    <th>Email</th>
+                                                    <th>status</th>
+                                                </tr>
+                                                </thead>
+                                            </table>
+
+                                        </div>
+                                        <div style="position: absolute;left: 540px;top: 75px  ">
+                                                <a href="{% url 'add_new' %}" type="button" class="btn" style="-webkit-appearance: none;cursor:pointer;color: green;background-color: white;border: 2px solid green;border-radius: 5px">Add New</a>
+                                            </div>
+
+                                        <div style="position: absolute;left: 650px;top: 75px ">
+                                                <a id="modal" type="button" class="btn abutton">Remove</a>
+                                        </div>
+
+                                        <div style="position: absolute;left: 750px;top: 75px " id="userEdit">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}
+                    </section>
+                </article>
+                <footer class="foote">
+                    <div class="footer-block buttons">
+                        <iframe class="footer-github-btn" frameborder="0" scrolling="0" width="140px" height="20px"></iframe>
+                    </div>
+                    <div class="footer-block author" style="color: #4f5f6f !important;">
+                        <ul>
+                            <li> created by
+                                <a>ModularCode</a>
+                            </li>
+                            <li>
+                                <a>get in touch</a>
+                            </li>
+                        </ul>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <!-- Reference block for JS -->
+        <div class="ref" id="ref">
+            <div class="color-primary"></div>
+            <div class="chart">
+                <div class="color-primary"></div>
+                <div class="color-secondary"></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+            <div class="modal-dialog">
+
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p>Are you really deleted the selected Users ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" onclick="UserDelete()" style="border-radius: 5px;">OK</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" style="border-radius: 5px;">Close</button>
+                </div>
+              </div>
+
+            </div>
+        </div>
+
+        <script src="{% static 'DataTables/jQuery-3.3.1/jquery-3.3.1.js' %}"></script>
+        <script src="{% static 'layout/js/vendor.js' %}"></script>
+        <script src="{% static 'layout/js/app.js' %}"></script>
+        <script src="{% static 'DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'toastor/js/toastr.js' %}"></script>
+
+        {% block script %}{% endblock %}
+
+    </body>
+</html>

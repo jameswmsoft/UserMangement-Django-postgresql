@@ -1,0 +1,30 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+
+{% block content %}
+    <div class="row sameheight-container">
+        <div class="col col-12 col-sm-12 col-md-12 col-xl-12 stats-col">
+            <div class="card stats" data-exclude="xs" style="height: 500px">
+                <div class="card-block">
+                    <div class="title-block">
+                        <h4 class="title" style="font-size: 30px"> Welcome {{ user.username }} </h4>
+                    </div>
+                    <div class="row row-sm stats-container" style="padding-bottom: 15px;height: 100px">
+
+                        <div style="font-size: 30px;padding: 50px">This is your Home</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $('#customer').addClass('active');
+        $('#customer a i').css({'color':'white'})
+
+    </script>
+{% endblock %}

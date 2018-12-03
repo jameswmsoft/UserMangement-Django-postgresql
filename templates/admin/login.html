@@ -1,0 +1,94 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "layout/css/font-awesome.min.css" %}" />
+{{ form.media }}
+    <style>
+        .login .form-row #id_username, .login .form-row #id_password{
+            padding: 10px;
+            font-size: 16px;
+        }
+        .login .submit-row {
+            padding:  1em 0 0 0em;;
+        }
+    .input-icon > i {
+        color: #aaa;
+        display: block;
+        position: absolute;
+        margin: 11px 2px 4px 10px;
+        z-index: 3;
+        width: 16px;
+        font-size: 16px;
+        text-align: center;
+    }
+    </style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content_title %}
+    <div style="width: 100%">
+        <div style="height: 20px;"></div>
+        <div style="width: 60%;margin: auto">
+            <h1 style="font-weight: bold"> SIGN IN TO CONTINUE </h1>
+        </div>
+        <div style="height: 50px;"></div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+{% if error %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endif %}
+
+<form action="{% url 'adminLogin' %}" method="post" id="login-form">
+    {% csrf_token %}
+  <div class="form-row input-icon">
+    {{ form.username.errors }}
+      <i class="fa fa-user" style="font-size: 20px"></i>
+    <input type="text" name="username" maxlength="254" style="padding-left: 35px" placeholder="Username" required="" id="id_username">
+  </div>
+  <div class="form-row input-icon" style="margin-top: 20px">
+     {{ form.password.errors }}
+      <i class="fa fa-user" style="font-size: 20px"></i>
+     <input type="password" name="password" style="padding-left: 35px" placeholder="Password" required="" id="id_password">
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
+
+  {% url 'admin_password_reset' as password_reset_url %}
+  {% if password_reset_url %}
+  <div class="password-reset-link">
+    <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+  </div>
+  {% endif %}
+  <div class="submit-row">
+    <input type="submit" style="width:100%;background-color: yellowgreen;font-size: 17px" value="{% trans 'Log in' %}" />
+  </div>
+</form>
+
+</div>
+{% endblock %}

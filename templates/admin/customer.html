@@ -1,0 +1,10 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block script %}
+	<script src="{% static 'myscript/js/userscript.js' %}"></script>
+     <script>
+         $('#gUser').addClass('active');
+        $('#customer').removeClass('active')
+    </script>
+{% endblock %}

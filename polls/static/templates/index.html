@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+    <link href="{% static 'bootstrap-4.1.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'datatable/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'toastor/css/toastr.min.css' %}"rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<a id="toastor" class="btn btn-block">toastor</a>
+    <div style="height: 50px;"></div>
+    <div style="width: 60%;margin: auto">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+				<th>Name</th>
+                <th>Position</th>
+				<th>salary</th>
+                <th>start_date</th>
+                <th>office</th>
+                <th>extn</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+
+<script src="{% static 'DataTables/jQuery-3.3.1/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'toastor/js/toastr.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        var otable = $('#example').DataTable({
+            ajax: "{% static 'data.json' %}",
+            columns: [
+            	{data: "name"},
+                {data: "position"},
+                {data: "salary"},
+                {data: "start_date"},
+                {data: "office"},
+                {data: "extn"},
+            ],
+            select: true
+        });
+
+        $('#toastor').on('click',function () {
+            toastr["success"]("Gnome & Growl type non-blocking notifications", "Toastr Notifications")
+        })
+    });
+</script>
+</html>
